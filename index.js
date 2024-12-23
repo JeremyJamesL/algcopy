@@ -27,12 +27,15 @@ const helpText = `
     ${yellow(`--app2`)}    Second algolia appID ${dim(
   `Make sure API key has addObject ACL`
 )}
-
+    ${yellow(`--index1`)}    First algolia index 
+    ${yellow(`--index2`)}    Second algolia index ${dim(
+  `If index doesn't exist, one will be create for you`
+)}
+    
     Examples
     ${green(
-      `npx algcopy --app1 <APP1ID> --app2 <APP2ID> --key1 <KEY1> --key2 <KEY2>`
-    )}
-    
+      `npx algcopy --app1 <APP1ID> --app2 <APP2ID> --key1 <KEY1> --key2 <KEY2> --index1 <INDEX1> --index2 <INDEX2>`
+    )}  
 `;
 
 const options = {
@@ -54,16 +57,26 @@ const options = {
       type: "string",
       isRequired: true,
     },
+    index1: {
+      type: "string",
+      isRequired: true,
+    },
+    index2: {
+      type: "string",
+      isRequired: true,
+    },
   },
 };
 
 const cli = meow(helpText, options);
 
+cliHandleUnhandled();
+
 const index1 = algoliasearch(cli.flags.app1, cli.flags.key1).initIndex(
-  "prod_ECOM"
+  cli.flags.index1
 );
 const index2 = algoliasearch(cli.flags.app2, cli.flags.key2).initIndex(
-  "prod_comm"
+  cli.flags.index2
 );
 
 try {
@@ -74,5 +87,3 @@ try {
   spinner.stop();
   cliErrorHandler("Failed the copy", err);
 }
-
-cliHandleUnhandled();

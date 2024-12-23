@@ -23,7 +23,7 @@ npx algcopy // Add flags
 This will copy all records, settings and settings in an index from one app to another
 
 ```console
-algcopy --app1 <APP1ID> --app2 <APP2ID> --key1 <KEY1> --key2 <KEY2> --index1 sourcIndex --index2 destinationIndex
+algcopy --app1 <APP1ID> --app2 <APP2ID> --key1 <KEY1> --key2 <KEY2> --index1 sourceIndex --index2 destinationIndex
 ```
 
 ## Commands and flags
